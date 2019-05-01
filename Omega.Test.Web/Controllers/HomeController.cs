@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Omega.Test.Web.Models;
@@ -15,10 +17,25 @@ namespace Omega.Test.Web.Controllers
 			return View(model);
 		}
 
+		public async Task<IActionResult> Candidate(int id)
+		{
+			var model = new CandidateEditViewModel
+			{
+				FirstName = "joel",
+				Id = 1,
+				Surname = "Lister",
+				Excluded = true,
+				Notes = new List<NoteViewModel>
+				{
+					new NoteViewModel{Index = 1,DateEntered = DateTimeOffset.Now.AddDays(-1), NoteText = "Test sample 1"},
+					new NoteViewModel{Index = 2,DateEntered = DateTimeOffset.Now, NoteText = "Test sample 2"},
+				}
+			};
+			return View(model);
+		}
+
 		public IActionResult About()
 		{
-			ViewData["Message"] = "Your application description page.";
-
 			return View();
 		}
 

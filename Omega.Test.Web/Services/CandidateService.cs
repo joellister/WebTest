@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,6 +15,16 @@ namespace Omega.Test.Web.Services
 
 		public async Task<CandidateListViewModel> GetCandidates(int pageNumber)
 		{
+			return new CandidateListViewModel
+			{
+				Candidates = new List<CandidateViewModel>
+				{
+					new CandidateViewModel {Id = 1, FirstName = "Joel", Surname = "Lister"},
+					new CandidateViewModel {Id = 2, FirstName = "Fred", Surname = "Smith"},
+				},
+				Paging = new Paging { CurrentPage = 1, Next=2,Previous = 1, TotalPages = 10, Total = 27}
+			};
+
 			var url = pageNumber > 1 ? $"{BaseUrl}?page={pageNumber}": BaseUrl;
 
 			var response = await Client.GetAsync(url);

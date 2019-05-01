@@ -27,7 +27,7 @@
                 <tbody>
                 @foreach (var candidate in Model.Candidates)
                 {
-                    <tr>
+                    <tr data-href="/home/candidate?id=@candidate.Id">
                         <td>@candidate.Surname</td>
                         <td>@candidate.FirstName</td>
                     </tr>
