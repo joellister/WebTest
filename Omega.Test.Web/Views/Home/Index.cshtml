@@ -1,6 +1,13 @@
-﻿@{
+﻿@model CandidateListViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
+
+
+@{
+    var previousClass=  Model.Paging.CurrentPage==1 ? "page-link disabled" : "page-link";
+    var nextClass=  Model.Paging.CurrentPage==Model.Paging.TotalPages ? "page-link disabled" : "page-link";
+ }
 
 <div class="row">
     <div class="panel panel-primary">
@@ -18,18 +25,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">Lister</th>
-                    <td>Mark</td>
-                </tr>
-                <tr>
+                @foreach (var candidate in Model.Candidates)
+                {
+                    <tr>
+                        <th scope="row">@candidate.Surname</th>
+                        <td>@candidate.FirstName</td>
+                    </tr>
+                }
+                @*<tr>
                     <th scope="row">Smith</th>
                     <td>Jacob</td>
                 </tr>
                 <tr>
                     <th scope="row">Another</th>
                     <td>Larry</td>
-                </tr>
+                </tr>*@
                 </tbody>
             </table>
         </div>
@@ -38,11 +48,27 @@
 <div class="row">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item">
+                @*<a class="page-link" href="#">Previous</a>*@
+                <a class="@previousClass"
+                    asp-controller="Home"
+                   asp-action="Index"
+                   asp-route-page="@Model.Paging.Previous">
+                    Previous
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link disabled" href="#">1</a></li>
+            <li class="page-item"><a class="page-link disabled" href="#">2</a></li>
+            <li class="page-item"><a class="page-link disabled" href="#">3</a></li>
+            <li class="page-item">
+                @*<a class="page-link" href="#">Next</a>*@
+                <a class="@nextClass" 
+                   asp-controller="Home"
+                   asp-action="Index"
+                   asp-route-page="@Model.Paging.Next">
+                    Next
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

@@ -11,7 +11,10 @@
     padding-top: 30px;
 }
 
-
+a.disabled {
+    color: gray;
+    pointer-events: none;
+}
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
