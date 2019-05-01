@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Omega.Test.Web.Models;
@@ -15,20 +12,6 @@ namespace Omega.Test.Web.Controllers
 		{
 			var service = new CandidateService();
 			var model = await service.GetCandidates(page);
-
-			//foreach (var candidate in model.Candidates)
-			//{
-			//	var item = await service.GetCandidate(candidate.Id);
-			//	if (item.Notes==null)
-			//	{
-			//		continue;
-			//	}
-
-			//	if (item.Notes.Any())
-			//	{
-					
-			//	}
-			//}
 
 			return View(model);
 		}
