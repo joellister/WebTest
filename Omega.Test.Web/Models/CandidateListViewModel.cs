@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Omega.Test.Web.Models.Api;
 
 namespace Omega.Test.Web.Models
 {

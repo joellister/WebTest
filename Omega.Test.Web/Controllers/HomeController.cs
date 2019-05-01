@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Omega.Test.Web.Models;
@@ -14,23 +15,29 @@ namespace Omega.Test.Web.Controllers
 		{
 			var service = new CandidateService();
 			var model = await service.GetCandidates(page);
+
+			//foreach (var candidate in model.Candidates)
+			//{
+			//	var item = await service.GetCandidate(candidate.Id);
+			//	if (item.Notes==null)
+			//	{
+			//		continue;
+			//	}
+
+			//	if (item.Notes.Any())
+			//	{
+					
+			//	}
+			//}
+
 			return View(model);
 		}
 
 		public async Task<IActionResult> Candidate(int id)
 		{
-			var model = new CandidateEditViewModel
-			{
-				FirstName = "joel",
-				Id = 1,
-				Surname = "Lister",
-				Excluded = true,
-				Notes = new List<NoteViewModel>
-				{
-					new NoteViewModel{Index = 1,DateEntered = DateTimeOffset.Now.AddDays(-1), NoteText = "Test sample 1"},
-					new NoteViewModel{Index = 2,DateEntered = DateTimeOffset.Now, NoteText = "Test sample 2"},
-				}
-			};
+			var service = new CandidateService();
+			var model = await service.GetCandidate(id);
+
 			return View(model);
 		}
 

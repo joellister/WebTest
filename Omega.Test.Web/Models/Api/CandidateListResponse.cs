@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Omega.Test.Web.Models.Api
 {
-	public class CandidateQuery
+	public class CandidateListResponse
 	{
 		public List<Candidate> Data { get; set; }
 		public Meta Meta { get; set; }

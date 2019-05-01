@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,6 +37,7 @@ namespace Omega.Test.Web
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
+			RewriteToHttps(app);
 
 			app.UseStaticFiles();
 
@@ -45,6 +47,13 @@ namespace Omega.Test.Web
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+		}
+
+		private static void RewriteToHttps(IApplicationBuilder app)
+		{
+			var options = new RewriteOptions()
+				.AddRedirectToHttps();
+			app.UseRewriter(options);
 		}
 	}
 }
