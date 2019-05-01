@@ -28,18 +28,11 @@
                 @foreach (var candidate in Model.Candidates)
                 {
                     <tr>
-                        <th scope="row">@candidate.Surname</th>
+                        <td>@candidate.Surname</td>
                         <td>@candidate.FirstName</td>
                     </tr>
                 }
-                @*<tr>
-                    <th scope="row">Smith</th>
-                    <td>Jacob</td>
-                </tr>
-                <tr>
-                    <th scope="row">Another</th>
-                    <td>Larry</td>
-                </tr>*@
+               
                 </tbody>
             </table>
         </div>
