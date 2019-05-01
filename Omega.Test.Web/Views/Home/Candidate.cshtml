@@ -3,3 +3,45 @@
     ViewData["Title"] = "Candidate Page";
 }
 
+<div class="row">
+    <div class="panel  panel-primary">
+        <div class="panel-heading">Candidate</div>
+        <div class="panel-body">
+            <p>First name: Joel</p>
+            <p>Surname: Lister</p>
+            <form>
+                Exclude <input type="checkbox" />
+            </form>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Note Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-href="#">
+                <td>20/03/2019</td>
+                <td>Some Note Detail</td>
+            </tr>
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <a class="btn btn-primary"
+       asp-controller="Home"
+       asp-action="Index"
+       asp-route-page="1">
+        Add Note
+    </a>
+    <a class="btn"
+       asp-controller="Home"
+       asp-action="Index"
+       asp-route-page="1">
+        Cancel
+    </a>
+</div>
