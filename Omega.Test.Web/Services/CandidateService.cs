@@ -134,6 +134,10 @@ namespace Omega.Test.Web.Services
 			});
 
 			var response = await Client.PostAsync(url, formContent);
+			if (!response.IsSuccessStatusCode)
+			{
+				//TODO: log error
+			}
 
 			var stringContent = await response.Content.ReadAsStringAsync();
 		}
@@ -148,6 +152,10 @@ namespace Omega.Test.Web.Services
 			});
 
 			var response = await Client.PostAsync(url, formContent);
+			if (!response.IsSuccessStatusCode)
+			{
+				//TODO: log error
+			}
 
 			var stringContent = await response.Content.ReadAsStringAsync();
 
