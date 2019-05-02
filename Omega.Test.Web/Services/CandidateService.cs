@@ -126,7 +126,7 @@ namespace Omega.Test.Web.Services
 
 		private async Task AmendNote(NoteViewModel model)
 		{
-			var url = $"https://www.peg-em.com/v1/{model.Id}/{model.Index}";
+			var url = $"https://www.peg-em.com/v1/candidateupdatenote/{model.Id}/{model.Index}";
 
 			var formContent = new FormUrlEncodedContent(new[]
 			{
@@ -144,7 +144,7 @@ namespace Omega.Test.Web.Services
 
 		private async Task AddNewNote(NoteViewModel model)
 		{
-			var url = $"https://www.peg-em.com/v1/{model.Id}";
+			var url = $"https://www.peg-em.com/v1/candidateaddnote/{model.Id}";
 
 			var formContent = new FormUrlEncodedContent(new[]
 			{
