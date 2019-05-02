@@ -15,15 +15,15 @@ namespace Omega.Test.Web.Services
 
 		public async Task<CandidateListViewModel> GetCandidates(int pageNumber)
 		{
-			return new CandidateListViewModel
-			{
-				Candidates = new List<CandidateViewModel>
-				{
-					new CandidateViewModel {Id = 1, FirstName = "Joel", Surname = "Lister"},
-					new CandidateViewModel {Id = 2, FirstName = "Fred", Surname = "Smith"},
-				},
-				Paging = new Paging { CurrentPage = 1, Next = 2, Previous = 1, TotalPages = 10, Total = 27 }
-			};
+			//return new CandidateListViewModel
+			//{
+			//	Candidates = new List<CandidateViewModel>
+			//	{
+			//		new CandidateViewModel {Id = 1, FirstName = "Joel", Surname = "Lister"},
+			//		new CandidateViewModel {Id = 2, FirstName = "Fred", Surname = "Smith"},
+			//	},
+			//	Paging = new Paging { CurrentPage = 1, Next = 2, Previous = 1, TotalPages = 10, Total = 27 }
+			//};
 
 			const string baseUrl = "https://www.peg-em.com/v1/candidates/0/-1";
 			var url = pageNumber > 1 ? $"{baseUrl}?page={pageNumber}" : baseUrl;
@@ -52,18 +52,18 @@ namespace Omega.Test.Web.Services
 
 		public async Task<CandidateEditViewModel> GetCandidate(int id)
 		{
-			return new CandidateEditViewModel
-			{
-				FirstName = "joel",
-				Id = 1,
-				Surname = "Lister",
-				Excluded = true,
-				Notes = new List<NoteViewModel>
-				{
-					new NoteViewModel{Index = 1,DateEntered = DateTimeOffset.Now.AddDays(-1), NoteText = "Test sample 1"},
-					new NoteViewModel{Index = 2,DateEntered = DateTimeOffset.Now, NoteText = "Test sample 2"},
-				}
-			};
+			//return new CandidateEditViewModel
+			//{
+			//	FirstName = "joel",
+			//	Id = 1,
+			//	Surname = "Lister",
+			//	Excluded = true,
+			//	Notes = new List<NoteViewModel>
+			//	{
+			//		new NoteViewModel{Index = 1,DateEntered = DateTimeOffset.Now.AddDays(-1), NoteText = "Test sample 1"},
+			//		new NoteViewModel{Index = 2,DateEntered = DateTimeOffset.Now, NoteText = "Test sample 2"},
+			//	}
+			//};
 
 
 			var url = $"https://www.peg-em.com/v1/candidate/{id}";
@@ -112,6 +112,50 @@ namespace Omega.Test.Web.Services
 				Total = meta.Total,
 				TotalPages = meta.TotalPages
 			};
+		}
+
+		public async Task SaveNote(NoteViewModel model)
+		{
+			if (model.Index==0)
+			{
+				await AddNewNote(model);
+				return;
+			}
+			await AmendNote(model);
+		}
+
+		private async Task AmendNote(NoteViewModel model)
+		{
+			var url = $"https://www.peg-em.com/v1/{model.Id}/{model.Index}";
+
+			var formContent = new FormUrlEncodedContent(new[]
+			{
+				new KeyValuePair<string, string>("note", model.NoteText)
+			});
+
+			var response = await Client.PostAsync(url, formContent);
+
+			var stringContent = await response.Content.ReadAsStringAsync();
+		}
+
+		private async Task AddNewNote(NoteViewModel model)
+		{
+			var url = $"https://www.peg-em.com/v1/{model.Id}";
+
+			var formContent = new FormUrlEncodedContent(new[]
+			{
+				new KeyValuePair<string, string>("note", model.NoteText)
+			});
+
+			var response = await Client.PostAsync(url, formContent);
+
+			var stringContent = await response.Content.ReadAsStringAsync();
+
+		}
+
+		public async Task ToggleExcludeFlag(int id)
+		{
+			
 		}
 	}
 }

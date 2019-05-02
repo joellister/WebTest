@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Omega.Test.Web.Models;
@@ -20,6 +21,37 @@ namespace Omega.Test.Web.Controllers
 		{
 			var service = new CandidateService();
 			var model = await service.GetCandidate(id);
+
+			return View(model);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Note(int id, int? index)
+		{
+
+			var model = new NoteViewModel { Id = id };
+			if (index.HasValue)
+			{
+				var service = new CandidateService();
+				var candidate = await service.GetCandidate(id);
+				model.Index = index.Value;
+				var note = candidate.Notes.First(x => x.Index == index.Value);
+				model.NoteText = note.NoteText;
+			}
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Note(NoteViewModel model)
+		{
+
+			if (ModelState.IsValid)
+			{
+				var service = new CandidateService();
+				await service.SaveNote(model);
+				return RedirectToAction("Candidate", new {id = model.Id});
+			}
 
 			return View(model);
 		}

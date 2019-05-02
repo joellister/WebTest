@@ -7,10 +7,12 @@
     <div class="panel  panel-primary">
         <div class="panel-heading">Candidate</div>
         <div class="panel-body">
-            <p>First name: Joel</p>
-            <p>Surname: Lister</p>
-            <form>
-                Exclude <input type="checkbox" />
+            <p>First name: @Model.FirstName</p>
+            <p>Surname: @Model.Surname</p>
+            <form asp-action="Exclude" asp-controller="Home" method="post">
+                <label asp-for="@Model.Excluded">Exclude</label>
+                <input type="checkbox" asp-for="@Model.Excluded" />
+                <input type="hidden" asp-for="@Model.Id" />
             </form>
         </div>
 
@@ -22,11 +24,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-href="#">
-                <td>20/03/2019</td>
-                <td>Some Note Detail</td>
-            </tr>
-               
+            @foreach (var note in @Model.Notes)
+            {
+                <tr data-href="/home/note?id=@{@Model.Id}&index=@note.Index">
+                    <td>@note.DateEntered.ToString("dd/MM/yyyy")</td>
+                    <td>@note.NoteText</td>
+                </tr>
+            }
+
             </tbody>
         </table>
     </div>
@@ -34,8 +39,8 @@
 <div class="row">
     <a class="btn btn-primary"
        asp-controller="Home"
-       asp-action="Index"
-       asp-route-page="1">
+       asp-action="note"
+       asp-route-id="@Model.Id">
         Add Note
     </a>
     <a class="btn"
