@@ -155,7 +155,15 @@ namespace Omega.Test.Web.Services
 
 		public async Task ToggleExcludeFlag(int id)
 		{
-			
+			var url = $"https://www.peg-em.com/v1/candidatetoggleexcluded/{id}";
+
+			var response = await Client.GetAsync(url);
+			if (!response.IsSuccessStatusCode)
+			{
+				//TODO: log error
+			}
+			var stringContent = await response.Content.ReadAsStringAsync();
+
 		}
 	}
 }

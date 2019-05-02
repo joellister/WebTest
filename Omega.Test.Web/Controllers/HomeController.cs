@@ -56,6 +56,13 @@ namespace Omega.Test.Web.Controllers
 			return View(model);
 		}
 
+		public async Task<IActionResult> ToggleExclude(int id)
+		{
+			var service = new CandidateService();
+			await service.ToggleExcludeFlag(id);
+			return RedirectToAction("Candidate", new { id = id });
+		}
+
 		public IActionResult About()
 		{
 			return View();

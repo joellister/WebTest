@@ -13,4 +13,7 @@ $(function () {
             }
         );
     });
+    $('#Excluded').on('change', function () {
+        $('#excludeform').submit();
+    });
 });

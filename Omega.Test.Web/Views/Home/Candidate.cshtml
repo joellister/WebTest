@@ -9,7 +9,7 @@
         <div class="panel-body">
             <p>First name: @Model.FirstName</p>
             <p>Surname: @Model.Surname</p>
-            <form asp-action="Exclude" asp-controller="Home" method="post">
+            <form asp-action="ToggleExclude" asp-controller="Home" method="post" id="excludeform">
                 <label asp-for="@Model.Excluded">Exclude</label>
                 <input type="checkbox" asp-for="@Model.Excluded" />
                 <input type="hidden" asp-for="@Model.Id" />
