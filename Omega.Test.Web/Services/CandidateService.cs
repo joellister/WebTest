@@ -89,8 +89,8 @@ namespace Omega.Test.Web.Services
 			var index = 0;
 			foreach (var note in candidateResponse.Notes)
 			{
-				index++;
 				candidate.Notes.Add(new NoteViewModel {Index = index,DateEntered = ToLocalTime(note.DateEntered), NoteText = note.Text});
+				index++;
 			}
 
 			return candidate;
@@ -116,7 +116,7 @@ namespace Omega.Test.Web.Services
 
 		public async Task SaveNote(NoteViewModel model)
 		{
-			if (model.Index==0)
+			if (!model.Index.HasValue)
 			{
 				await AddNewNote(model);
 				return;
